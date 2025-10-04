@@ -3,11 +3,14 @@ import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 import mysqldump from "mysqldump";
 
-import { dbConfig } from "../config/db.js";
+/* import { dbConfig } from "../config/db.js"; */
 import { AttendanceModel } from "../models/attendance.js";
 import { UserModel } from "../models/user.js";
 import { generateExcel } from "../utils/generate-excel.js";
 import { createZip } from "../utils/create-zip.js";
+
+//VUE
+import { pool } from "../config/db.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

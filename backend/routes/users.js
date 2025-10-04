@@ -1,7 +1,7 @@
 import { Router } from "express";
 import multer from "multer";
 
-import { UserController } from "../controllers/users.js";
+import { UserController,getAllPublic } from "../controllers/users.js";
 import { verifyToken, isAdmin } from "../middlewares/auth.js";
 import { isAuth } from "../middlewares/users.js";
 
@@ -9,6 +9,9 @@ export const usersRouter = Router();
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+
+//  Ruta pública para pruebas con Vue
+usersRouter.get("/demo", getAllPublic);
 
 usersRouter.get("/", [verifyToken, isAdmin], UserController.getAll);
 usersRouter.get("/admins", [verifyToken, isAdmin], UserController.getAdmins);
@@ -22,3 +25,6 @@ usersRouter.post("/image-profile-db/:id", [verifyToken, isAuth, upload.single("u
 usersRouter.put("/:id", [verifyToken, isAdmin], UserController.update);
 
 usersRouter.delete("/:id", [verifyToken, isAdmin], UserController.delete);
+
+
+

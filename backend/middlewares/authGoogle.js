@@ -1,4 +1,4 @@
-import passport from "passport";
+/* import passport from "passport";
 import { OAuth2Strategy as GoogleStrategy } from "passport-google-oauth";
 
 import {
@@ -20,3 +20,4 @@ passport.use(
     }
   )
 );
+ */

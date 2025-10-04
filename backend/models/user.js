@@ -3,7 +3,7 @@ import bycrypt from "bcrypt";
 
 export class UserModel {
   // Query para obtener todos los usuarios
-  static async getAll() {
+  /* static async getAll() {
     try {
       const [users] = await pool.query(
         "SELECT u.*, TIMESTAMPDIFF(YEAR, u.`fecha_nacimiento`, CURDATE()) AS edad, e.nombre_empresa, r.rol_name FROM users u INNER JOIN empresas e ON u.empresa_id = e.empresa_id INNER JOIN user_rol r ON u.rol_id = r.rol_id"
@@ -13,7 +13,15 @@ export class UserModel {
       console.log(error);
       return [];
     }
+  } */
+
+  /* VUE */
+
+  static async getAll() {
+    const [rows] = await pool.query("SELECT * FROM users");
+    return rows;
   }
+
 
   // Query para obtener todos los usuarios administradores
   static async getAdmins() {
@@ -101,7 +109,7 @@ export class UserModel {
         "UPDATE users SET user_img_profile = ? WHERE user_id = ?",
         [imageUrl, id]
       );
-      
+
       return result.affectedRows;
     } catch (error) {
       console.error(error);
@@ -116,7 +124,7 @@ export class UserModel {
         "UPDATE users SET user_img_profile_blob = ?, user_img_profile_path = ? WHERE user_id = ?",
         [imageData, imagePath, id]
       );
-      
+
       return result.affectedRows;
     } catch (error) {
       console.error(error);
@@ -203,18 +211,18 @@ export class UserModel {
       if (!email) {
         throw new Error("No se logro iniciar sesion con google");
       }
-  
+
       const [user] = await pool.query("SELECT * FROM users WHERE correo = ?", [
         email,
       ]);
       if (user.length === 0) throw new Error("Usuario no encontrado. El acceso con Google no esta habilitado para este usuario");
-  
+
       const { contraseña: _, ...publicUser } = user[0];
-  
+
       return publicUser;
     } catch (error) {
       throw new Error(error);
     }
-    
+
   }
 }

@@ -128,20 +128,20 @@ export class UserController {
   static async setImageProfileDB(req, res) {
     try {
       if (!req.file) return res.status(400).json({ message: "No se ha subido ningún archivo" });
-  
+
       const { size, mimetype, buffer, originalname } = req.file;
-  
+
       if (size > 1024 * 1024) return res.status(400).json({ message: "La imagen debe pesar menos de 1MB" });
-  
+
       if (!mimetype.startsWith("image") || !["image/jpeg", "image/png"].includes(mimetype)) {
         return res.status(400).json({ message: "Tipo de archivo no válido" });
       }
-  
+
       const { id } = req.params;
-  
+
       // Encriptar la imagen
-      const encryptedData  = encryptImage(buffer);
-  
+      const encryptedData = encryptImage(buffer);
+
       // Guardar la imagen en el servidor
       const uploadDir = path.join(__dirname, "..", "uploads");
       await fs.mkdir(uploadDir, { recursive: true });
@@ -149,16 +149,16 @@ export class UserController {
       // Ruta y nombre del archivo
       const fileName = `profile_${id}_${Date.now()}_${originalname}`;
       const filePath = path.join(uploadDir, fileName);
-  
-      await fs.writeFile(filePath, encryptedData); 
-  
+
+      await fs.writeFile(filePath, encryptedData);
+
       // Guardar en la base de datos
       const result = await UserModel.setImageProfileDB({
         id,
         imageData: encryptedData,
         imagePath: `uploads/${fileName}`,
       });
-  
+
       res.json({ message: "Imagen subida con éxito", affectedRows: result });
     } catch (error) {
       console.error(error);
@@ -178,7 +178,7 @@ export class UserController {
 
       // **Ruta de la imagen en el servidor**
       const imagePath = path.join(__dirname, "..", user.user_img_profile_path);
-      
+
       // Leer la imagen encriptada
       const encryptedData = await fs.readFile(imagePath);
 
@@ -210,7 +210,7 @@ export class UserController {
     try {
       const [userFound] = await UserModel.getById({ id });
       if (!userFound) return res.status(404).json({ message: "Usuario para actualizar no encontrado" });
-      
+
       const resultUser = await UserModel.update({ id, input: result.data });
       res.status(201).json({
         message: "Usuario actualizado correctamente",
@@ -229,7 +229,7 @@ export class UserController {
     try {
       const [userFound] = await UserModel.getById({ id });
       if (!userFound) return res.status(404).json({ message: "Usuario para eliminar no encontrado" });
-      
+
       const result = await UserModel.delete({ id });
       res.json({
         message: "Usuario eliminado correctamente",
@@ -240,4 +240,31 @@ export class UserController {
       res.status(500).json({ message: "Error al eliminar el usuario" });
     }
   }
+
+
+  // 🔓 Método público para obtener usuarios sin autenticación
+static async getAllPublic(req, res) {
+  try {
+    const users = await UserModel.getAll();
+
+    const publicUsers = users.map(({ contraseña, ...rest }) => rest);
+
+    res.json(publicUsers);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error al obtener usuarios públicos" });
+  }
+}
+}
+
+export async function getAllPublic(req, res) {
+  try {
+    const users = await UserModel.getAll();
+    const publicUsers = users.map(({ contraseña, ...rest }) => rest);
+    res.json(publicUsers);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error al obtener usuarios públicos" });
+  }
+
 }

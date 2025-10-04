@@ -15,11 +15,23 @@ import { authRouter } from "./routes/auth.js";
 import { resourcesRouter } from "./routes/resources.js";
 import { queriesRouter } from './routes/queries.js';
 
+//VUE
+import { getAllPublic } from './controllers/users.js';
+
+/// 
+import dotenv from 'dotenv';
+dotenv.config();
+
+
+
 const app = express();
 app.use(express.json());
 app.use(passport.initialize());
 app.use(cors({ origin: FRONTEND_URL, credentials: true }));
 app.disable("x-powered-by");
+
+//  Ruta pública para pruebas con Vue
+app.get('/public-users', getAllPublic);
 
 // Ruta para gestionar el login
 app.use('/auth', authRouter)
