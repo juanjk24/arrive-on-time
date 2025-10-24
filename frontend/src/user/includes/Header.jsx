@@ -7,9 +7,11 @@ import { Sidebar } from "primereact/sidebar";
 import { Button } from "primereact/button";
 import { FileUpload } from "primereact/fileupload";
 import { Toast } from "primereact/toast";
+import { useDataContext } from "../../contexts/DataContext.jsx";
 
 export function Header({ user }) {
   const location = useLocation();
+  const { triggerUserProfileRefresh } = useDataContext();
   const [visibleRight, setVisibleRight] = useState(false);
   const toast = useRef(null);
   const [loading, setLoading] = useState(false);
@@ -38,7 +40,7 @@ export function Header({ user }) {
       summary: "Success",
       detail: "Imagen subida correctamente",
     });
-    window.location.reload();
+    triggerUserProfileRefresh();
   };
 
   // En caso de error al subir la imagen

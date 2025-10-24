@@ -4,9 +4,11 @@ import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
 
 import { UpdateAttendance } from "./UpdateAttendance.jsx";
+import { useDataContext } from "../../../../contexts/DataContext.jsx";
 
 export function TableActions({ attendance }) {
   const toast = useRef(null);
+  const { triggerAttendancesRefresh } = useDataContext();
   const [visible, setVisible] = useState(false);
   const [updateVisible, setUpdateVisible] = useState(false);
 
@@ -34,7 +36,7 @@ export function TableActions({ attendance }) {
       }
 
       setVisible(false);
-      window.location.reload();
+      triggerAttendancesRefresh();
     } catch (error) {
       console.error("Error al eliminar la asistencia:", error);
 
@@ -79,7 +81,7 @@ export function TableActions({ attendance }) {
         style={{ marginRight: ".5em" }}
         onClick={() => setUpdateVisible(true)}
       />
-      <Button
+      {/* <Button
         icon="pi pi-trash"
         size="small"
         className="danger-button"
@@ -87,7 +89,7 @@ export function TableActions({ attendance }) {
         tooltipOptions={{ position: "bottom" }}
         onClick={deleteAttendanceDialog}
       />
-
+ */}
       <UpdateAttendance
         visible={updateVisible}
         setVisible={setUpdateVisible}

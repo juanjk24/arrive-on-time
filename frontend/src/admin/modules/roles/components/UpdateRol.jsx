@@ -4,9 +4,11 @@ import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
+import { useDataContext } from "../../../../contexts/DataContext.jsx";
 
 export function UpdateRol({ visible, setVisible, rol }) {
   const toast = useRef(null);
+  const { triggerRolesRefresh } = useDataContext();
   const [rolId, setRolId] = useState({
     rolId: rol.rol_id,
   });
@@ -59,8 +61,8 @@ export function UpdateRol({ visible, setVisible, rol }) {
 
       setVisible(false);
       setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+        triggerRolesRefresh();
+      }, 100);
     } catch (error) {
       console.error("Error al actualizar los datos del rol:", error);
 

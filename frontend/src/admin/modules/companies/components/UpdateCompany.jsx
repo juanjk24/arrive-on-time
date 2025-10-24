@@ -4,11 +4,13 @@ import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
-import { getUsersAdmins } from "../api/usersAdmins";
+import { getUsersAdmins } from "../api/usersAdmins.js";
+import { useDataContext } from "../../../../contexts/DataContext.jsx";
 import { Dropdown } from "primereact/dropdown";
 
 export function UpdateCompany({ visible, setVisible, company }) {
   const toast = useRef(null);
+  const { triggerCompaniesRefresh } = useDataContext();
   const [usersAdmins, setUsersAdmins] = useState([]);
 
   const [companyId, setCompanyId] = useState({
@@ -87,8 +89,8 @@ export function UpdateCompany({ visible, setVisible, company }) {
 
       setVisible(false);
       setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+        triggerCompaniesRefresh();
+      }, 100);
     } catch (error) {
       console.error("Error al actualizar los datos de la empresa:", error);
 

@@ -6,9 +6,11 @@ import { Toast } from "primereact/toast";
 
 import { createRol } from "../api/roles";
 import { TOAST_SEVERITY, TOAST_SUMMARY } from "../constants/toast-config.js";
+import { useDataContext } from "../../../../contexts/DataContext.jsx";
 
 export function AddRol({ visible, setVisible }) {
   const toast = useRef(null);
+  const { triggerRolesRefresh } = useDataContext();
 
   const [rolName, setRolName] = useState("");
 
@@ -45,8 +47,8 @@ export function AddRol({ visible, setVisible }) {
         setVisible(false);
 
         setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+          triggerRolesRefresh();
+        }, 100);
       } else {
         showToast({ 
           detail: "Error al crear el rol",

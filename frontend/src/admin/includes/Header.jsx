@@ -9,10 +9,12 @@ import { Toast } from "primereact/toast";
 
 import { getUserById, auth } from "./api/getUser.js";
 import { navItems } from "./lib/nav-items.js";
+import { useDataContext } from "../../contexts/DataContext.jsx";
 
 export function Header() {
   const token = document.cookie.split("=")[1];
   const location = useLocation();
+  const { triggerUserProfileRefresh, refreshUserProfile } = useDataContext();
   const [visibleRight, setVisibleRight] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState([]);
@@ -28,7 +30,7 @@ export function Header() {
       });
     }
     fetchData()
-  }, [loading]);
+  }, [loading, refreshUserProfile]);
 
   // funcion para subir la imagen de perfil
   const onUpload = (e) => {
@@ -39,6 +41,7 @@ export function Header() {
     });
 
     setLoading(false);
+    triggerUserProfileRefresh();
   };
 
   // En caso de error al subir la imagen

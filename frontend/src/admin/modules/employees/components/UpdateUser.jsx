@@ -11,9 +11,11 @@ import { Calendar } from "primereact/calendar";
 import { getCompanies } from "../api/companies";
 import { getRoles } from "../api/roles";
 import { locale } from "../constants/calendar-locale.js";
+import { useDataContext } from "../../../../contexts/DataContext.jsx";
 
 export function UpdateUser({ visible, setVisible, user }) {
   const toast = useRef(null);
+  const { triggerUsersRefresh } = useDataContext();
   const [companies, setCompanies] = useState([]);
   const [roles, setRoles] = useState([]);
 
@@ -119,8 +121,8 @@ export function UpdateUser({ visible, setVisible, user }) {
       setVisible(false);
 
       setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+        triggerUsersRefresh();
+      }, 100);
       
     } catch (error) {
       console.error("Error al actualizar el usuario:", error);

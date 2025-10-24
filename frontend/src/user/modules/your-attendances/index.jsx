@@ -5,9 +5,11 @@ import { TableAttendances } from "./components/TableAttendances.jsx";
 
 import { getYourAttendances } from "./api/your-attendances.js";
 import { getUserById, auth } from "./api/user.js";
+import { useDataContext } from "../../../contexts/DataContext.jsx";
 
 export function YourAttendances() {
   const token = document.cookie.split("=")[1];
+  const { refreshUserProfile } = useDataContext();
 
   const [attendances, setAttendances] = useState([]);
   const [userData, setUserData] = useState([]);
@@ -25,7 +27,7 @@ export function YourAttendances() {
       });
     };
     fetchData();
-  }, []);
+  }, [refreshUserProfile]);
 
   return (
     <>

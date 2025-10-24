@@ -4,9 +4,11 @@ import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
+import { useDataContext } from "../../../../contexts/DataContext.jsx";
 
 export function UpdateAttendanceType({ visible, setVisible, attendanceType }) {
   const toast = useRef(null);
+  const { triggerAttendanceTypesRefresh } = useDataContext();
   const [attendanceTypeId, setAttendanceTypeId] = useState({
     attendanceTypeId: attendanceType.tipo_id,
   });
@@ -59,8 +61,8 @@ export function UpdateAttendanceType({ visible, setVisible, attendanceType }) {
 
       setVisible(false);
       setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+        triggerAttendanceTypesRefresh();
+      }, 100);
     } catch (error) {
       console.error("Error al actualizar los datos del tipo de asistencia:", error);
 

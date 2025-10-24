@@ -4,9 +4,11 @@ import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
 
 import { UpdateCompany } from "./UpdateCompany.jsx";
+import { useDataContext } from "../../../../contexts/DataContext.jsx";
 
 export function TableActions({ company }) {
   const toast = useRef(null);
+  const { triggerCompaniesRefresh } = useDataContext();
   const [visible, setVisible] = useState(false);
   const [updateVisible, setUpdateVisible] = useState(false);
 
@@ -34,7 +36,7 @@ export function TableActions({ company }) {
       }
 
       setVisible(false);
-      window.location.reload();
+      triggerCompaniesRefresh();
     } catch (error) {
       console.error("Error al eliminar la empresa:", error);
 

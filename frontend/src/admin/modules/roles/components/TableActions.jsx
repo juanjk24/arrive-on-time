@@ -4,9 +4,11 @@ import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
 
 import { UpdateRol } from "./UpdateRol.jsx";
+import { useDataContext } from "../../../../contexts/DataContext.jsx";
 
 export function TableActions({ rol }) {
   const toast = useRef(null);
+  const { triggerRolesRefresh } = useDataContext();
   const [visible, setVisible] = useState(false);
   const [updateVisible, setUpdateVisible] = useState(false);
 
@@ -34,7 +36,7 @@ export function TableActions({ rol }) {
       }
 
       setVisible(false);
-      window.location.reload();
+      triggerRolesRefresh();
     } catch (error) {
       console.error("Error al eliminar el rol:", error);
 

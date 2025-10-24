@@ -13,9 +13,11 @@ import { getCompanies } from "../api/companies.js";
 import { getRoles } from "../api/roles.js";
 import { locale } from "../constants/calendar-locale.js";
 import { TOAST_SEVERITY, TOAST_SUMMARY } from "../constants/toast-config.js";
+import { useDataContext } from "../../../../contexts/DataContext.jsx";
 
 export function AddUser({ visible, setVisible }) {
   const toast = useRef(null);
+  const { triggerUsersRefresh } = useDataContext();
 
   const [companies, setCompanies] = useState([]);
   const [roles, setRoles] = useState([]);
@@ -104,8 +106,8 @@ export function AddUser({ visible, setVisible }) {
         setVisible(false);
 
         setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+          triggerUsersRefresh();
+        }, 100);
       } else {
         showToast({ 
           detail: "Error al crear el usuario",

@@ -2,6 +2,10 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 
 export function QueryResults({ queryResult }) {
+    if (!queryResult || queryResult.length === 0) {
+        return <div>No hay resultados para mostrar</div>;
+    }
+    
     return (
         <div>
             {
@@ -22,7 +26,7 @@ export function QueryResults({ queryResult }) {
                                 header="#"
                                 body={(_, rowIndex) => rowIndex.rowIndex + 1}
                             />
-                            
+
                             {
                                 Object.keys(queryResult[0])
                                     .map(key =>

@@ -4,9 +4,11 @@ import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
 
 import { UpdateAttendanceType } from "./UpdateAttendanceType.jsx";
+import { useDataContext } from "../../../../contexts/DataContext.jsx";
 
 export function TableActions({ attendanceType }) {
   const toast = useRef(null);
+  const { triggerAttendanceTypesRefresh } = useDataContext();
   const [visible, setVisible] = useState(false);
   const [updateVisible, setUpdateVisible] = useState(false);
 
@@ -34,7 +36,7 @@ export function TableActions({ attendanceType }) {
       }
 
       setVisible(false);
-      window.location.reload();
+      triggerAttendanceTypesRefresh();
     } catch (error) {
       console.error("Error al eliminar el tipo de asistencia:", error);
 

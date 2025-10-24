@@ -8,9 +8,11 @@ import { Dropdown } from "primereact/dropdown";
 import { createCompany } from "../api/companies.js";
 import { getUsersAdmins } from "../api/usersAdmins.js";
 import { TOAST_SEVERITY, TOAST_SUMMARY } from "../constants/toast-config.js";
+import { useDataContext } from "../../../../contexts/DataContext.jsx";
 
 export function AddCompany({ visible, setVisible }) {
   const toast = useRef(null);
+  const { triggerCompaniesRefresh } = useDataContext();
 
   const [usersAdmins, setUsersAdmins] = useState([]);
 
@@ -63,8 +65,8 @@ export function AddCompany({ visible, setVisible }) {
         setVisible(false);
 
         setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+          triggerCompaniesRefresh();
+        }, 100);
       } else {
         showToast({
           detail: "Error al crear la empresa",

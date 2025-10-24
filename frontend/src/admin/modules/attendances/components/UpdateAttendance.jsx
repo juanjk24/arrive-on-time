@@ -11,9 +11,11 @@ import { Message } from "primereact/message";
 import { getAttendancesType } from "../api/attendancesType";
 import { getUsers } from "../api/users";
 import { locale } from '../constants/calendar-locale.js';
+import { useDataContext } from "../../../../contexts/DataContext.jsx";
 
 export function UpdateAttendance({ visible, setVisible, attendance }) {
   const toast = useRef(null);
+  const { triggerAttendancesRefresh } = useDataContext();
 
   const [attendancesType, setAttendancesType] = useState([]);
   const [users, setUsers] = useState([]);
@@ -119,8 +121,8 @@ export function UpdateAttendance({ visible, setVisible, attendance }) {
 
       setVisible(false);
       setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+        triggerAttendancesRefresh();
+      }, 100);
     } catch (error) {
       console.error("Error al actualizar los datos de la asistencia:", error);
 

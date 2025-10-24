@@ -4,8 +4,10 @@ import { TableUsers } from "./components/TableUsers.jsx";
 
 import { getUsers } from "./api/users.js";
 import './styles/employees.css'
+import { useDataContext } from "../../../contexts/DataContext.jsx";
 
 export function Employees() {
+  const { refreshUsers } = useDataContext();
   const [users, setUsers] = useState([])
   const [change, setChange] = useState(false)
 
@@ -13,7 +15,7 @@ export function Employees() {
     getUsers().then((data) => {
       setUsers(data)
     })
-  },[change])
+  },[change, refreshUsers])
 
   return (
     <>

@@ -11,9 +11,11 @@ import { getAttendancesType } from "../api/attendancesType.js";
 import { getUsers } from "../api/users.js";
 import { locale } from "../constants/calendar-locale.js";
 import { TOAST_SEVERITY, TOAST_SUMMARY } from "../constants/toast-config.js";
+import { useDataContext } from "../../../../contexts/DataContext.jsx";
 
 export function AddAttendance({ visible, setVisible }) {
   const toast = useRef(null);
+  const { triggerAttendancesRefresh } = useDataContext();
 
   const [attendancesType, setAttendancesType] = useState([]);
   const [users, setUsers] = useState([]);
@@ -75,8 +77,8 @@ export function AddAttendance({ visible, setVisible }) {
         setVisible(false);
 
         setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+          triggerAttendancesRefresh();
+        }, 100);
       } else {
         showToast({
           detail: "Error al registrar la asistencia",

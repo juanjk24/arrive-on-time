@@ -6,9 +6,11 @@ import { Toast } from "primereact/toast";
 
 import { createAttendanceType } from "../api/attendances-type.js";
 import { TOAST_SEVERITY, TOAST_SUMMARY } from "../constants/toast-config.js";
+import { useDataContext } from "../../../../contexts/DataContext.jsx";
 
 export function AddAttendanceType({ visible, setVisible }) {
   const toast = useRef(null);
+  const { triggerAttendanceTypesRefresh } = useDataContext();
 
   const [attendanceTypeName, setAttendancesTypeName] = useState("");
 
@@ -45,8 +47,8 @@ export function AddAttendanceType({ visible, setVisible }) {
         setVisible(false);
 
         setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+          triggerAttendanceTypesRefresh();
+        }, 100);
       } else {
         showToast({
           detail: "Error al crear el tipo de asistencia",
