@@ -1,14 +1,34 @@
+
+/* Header de la tabla: separar título y controles (botones) */
 .table-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-height: 40px;
+  gap: 1rem; /* separación entre izquierda y derecha */
+  padding: 0.5rem 0; /* espacio vertical para que no queden pegados */
+  width: 100%;
 }
 
+/* Grupo izquierdo dentro del header: título + botones relacionados */
+.table-header .header-left,
+.table-header > :first-child {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* separación entre el título y el botón de descargar */
+}
+
+/* Si el botón de descarga no tiene clase específica, aplicamos margen */
+.table-header .p-button,
+.table-header button {
+  margin-left: 0.5rem;
+}
+
+/* Ajuste principal del contenedor de la tabla */
 .users-table {
-  padding: 10px 10%;
+  padding: 10px 5%;
 }
 
+/* Formularios (mantener existentes) */
 .add-user-form,
 .update-user-form {
   display: flex;
@@ -17,6 +37,7 @@
   gap: 10px;
 }
 
+/* Quitar flechas de input tipo number en webkit */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -29,26 +50,49 @@ input[type="number"]::-webkit-outer-spin-button {
   gap: 2px;
 }
 
-#date, #time {
-  button {
-    background-color: var(--primary-color);
-    color: #000;
-    border: none;
-
-    &:hover {
-      background-color: var(--hover-color);
-    }
-  }
+/* Botones dentro de los elementos #date y #time */
+#date button,
+#time button {
+  background-color: var(--primary-color);
+  color: #000;
+  border: none;
+}
+#date button:hover,
+#time button:hover {
+  background-color: var(--hover-color);
 }
 
-.p-datepicker-calendar {
-  .p-datepicker-today {
-    span {
-      background-color: var(--secondary-color);
-    }
+/* Correcciones para datepicker (CSS válido) */
+.p-datepicker-calendar .p-datepicker-today span {
+  background-color: var(--secondary-color);
+}
+
+.p-datepicker-calendar .p-highlight {
+  background-color: var(--primary-color);
+}
+
+/* Responsive: en pantallas pequeñas apilar header y reducir gaps */
+@media (max-width: 768px) {
+  .table-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
   }
 
-  .p-highlight {
-    background-color: var(--primary-color);
+  .table-header .header-left,
+  .table-header > :first-child {
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  /* eliminar margen-left en botones para evitar overflow */
+  .table-header .p-button,
+  .table-header button {
+    margin-left: 0;
+    align-self: flex-end;
+  }
+
+  .users-table {
+    padding: 8px 3%;
   }
 }

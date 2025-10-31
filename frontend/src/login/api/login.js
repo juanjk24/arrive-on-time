@@ -1,6 +1,6 @@
 export async function login({ cedula, contraseña }) {
   try {
-    const response = await fetch("https://localhost:5000/auth/login", {
+        const response = await fetch("https://localhost:5000/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

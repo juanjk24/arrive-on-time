@@ -2,11 +2,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #000;
-  background-color: #0ae98a;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--primary-color);
   padding: 0 10%;
   margin: 0;
   height: 64px;
+  transition: all 0.3s ease;
 }
 
 .logo {
@@ -24,6 +25,11 @@
     align-items: center;
     color: #000;
     text-decoration: none;
+  }
+
+  h1 {
+    color: #000;
+    transition: color 0.3s ease;
   }
 }
 
@@ -61,6 +67,7 @@
       a {
         color: #000;
         text-decoration: none;
+        transition: color 0.3s ease;
       }
     }
   }
@@ -96,4 +103,45 @@
     border: none;
     color: #000;
   }
+}
+/* Estilos para modo oscuro en el admin header */
+.dark-theme .header {
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.dark-theme .logo h1 {
+  color: var(--primary-color) !important;
+}
+
+.dark-theme .logo a {
+  color: var(--primary-color) !important;
+}
+
+.dark-theme .nav-list li a {
+  color: var(--text-color) !important;
+}
+
+.dark-theme .nav-list li:hover {
+  background-color: var(--primary-color);
+}
+
+.dark-theme .nav-list li:hover a {
+  color: #000 !important;
+}
+
+.dark-theme .nav-list li.active {
+  background-color: var(--primary-color);
+}
+
+.dark-theme .nav-list li.active a {
+  color: #000 !important;
+}
+
+.dark-theme .aside-header-profile h2 {
+  color: var(--text-color) !important;
+}
+
+.dark-theme .aside-header-profile p {
+  color: var(--text-color) !important;
 }

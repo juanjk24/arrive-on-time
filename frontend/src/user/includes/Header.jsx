@@ -8,10 +8,12 @@ import { Button } from "primereact/button";
 import { FileUpload } from "primereact/fileupload";
 import { Toast } from "primereact/toast";
 import { useDataContext } from "../../contexts/DataContext.jsx";
+import { useTheme } from "../../contexts/ThemeContext.jsx";
 
 export function Header({ user }) {
   const location = useLocation();
   const { triggerUserProfileRefresh } = useDataContext();
+  const { isDarkMode, toggleTheme } = useTheme();
   const [visibleRight, setVisibleRight] = useState(false);
   const toast = useRef(null);
   const [loading, setLoading] = useState(false);
@@ -159,6 +161,14 @@ export function Header({ user }) {
             onUpload={onUpload}
             onError={onError}
             onBeforeUpload={() => setLoading(true)}
+          />
+
+          <Button
+            style={{ width: "100%" }}
+            className="secondary-button"
+            label={isDarkMode ? "Modo Claro" : "Modo Oscuro"}
+            icon={isDarkMode ? "pi pi-sun" : "pi pi-moon"}
+            onClick={toggleTheme}
           />
 
           <Button

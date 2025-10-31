@@ -8,16 +8,35 @@
   --primary-color: #0ae98a;
   --secondary-color: #7fffc8;
   --hover-color: #00ff91;
-
   --danger-color: #dc2626;
+
+  /* Colores para modo claro */
+  --bg-color: #F4F6FF;
+  --text-color: #000000;
+  --card-bg: #ffffff;
+  --border-color: #e0e0e0;
+  --sidebar-bg: #ffffff;
 }
 
 body {
   margin: 0;
-  background-color: #F4F6FF;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-input:focus, textarea:focus, select:focus {
+/* Modo oscuro */
+body.dark-theme {
+  --bg-color: #1a1a1a;
+  --text-color: #e5e5e5;
+  --card-bg: #2a2a2a;
+  --border-color: #404040;
+  --sidebar-bg: #2a2a2a;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
   border-color: var(--primary-color);
   box-shadow: 0 0 0 0.2rem rgba(10, 233, 138, 0.25);
 }
@@ -28,7 +47,7 @@ input:focus, textarea:focus, select:focus {
   border: none;
 
   &:hover {
-      background-color: var(--hover-color);
+    background-color: var(--hover-color);
   }
 }
 
@@ -38,8 +57,8 @@ input:focus, textarea:focus, select:focus {
   border: 1px solid var(--primary-color);
 
   &:hover {
-      background-color: var(--hover-color);
-      color: #000;
+    background-color: var(--hover-color);
+    color: #000;
   }
 }
 
@@ -49,8 +68,8 @@ input:focus, textarea:focus, select:focus {
   border: 1px solid var(--danger-color);
 
   &:hover {
-      background-color: var(--danger-color);
-      color: #fff;
+    background-color: var(--danger-color);
+    color: #fff;
   }
 }
 
@@ -75,6 +94,7 @@ input:focus, textarea:focus, select:focus {
   from {
     width: 0%;
   }
+
   to {
     width: 100%;
   }
@@ -94,4 +114,144 @@ input:focus, textarea:focus, select:focus {
   border-radius: 5px;
   animation: fadeIn 0.4s ease-in-out infinite alternate;
   z-index: 9999;
+}
+
+/* Estilos para el modo oscuro */
+.dark-theme .p-sidebar {
+  background-color: var(--sidebar-bg) !important;
+  color: var(--text-color) !important;
+}
+
+.dark-theme .p-sidebar h2,
+.dark-theme .p-sidebar p {
+  color: var(--text-color) !important;
+}
+
+.dark-theme .header {
+  background-color: var(--card-bg) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.dark-theme .nav-list a {
+  color: var(--text-color) !important;
+}
+
+.dark-theme .logo h1 {
+  color: var(--text-color) !important;
+}
+
+/* Transiciones suaves para el cambio de tema */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Ajustes para PrimeReact en modo oscuro */
+.dark-theme .p-button {
+  transition: all 0.3s ease;
+}
+
+.dark-theme .p-fileupload-choose {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: #000 !important;
+}
+
+.dark-theme .p-fileupload-choose:hover {
+  background-color: var(--hover-color) !important;
+}
+
+/* Estilo
+s adicionales para tablas y contenido en modo oscuro */
+.dark-theme .p-datatable {
+  background-color: #3a3a3a !important;
+  color: var(--text-color) !important;
+}
+
+.dark-theme .p-datatable .p-datatable-header {
+  background-color: #3a3a3a !important;
+  color: var(--text-color) !important;
+  border-color: var(--border-color) !important;
+}
+
+.dark-theme .p-datatable .p-datatable-tbody>tr {
+  background-color: #3a3a3a !important;
+  color: var(--text-color) !important;
+}
+
+.dark-theme .p-datatable .p-datatable-tbody>tr:nth-child(even) {
+  background-color: #353535 !important;
+}
+
+.dark-theme .p-datatable .p-datatable-tbody>tr:hover {
+  background-color: #404040 !important;
+}
+
+.dark-theme .p-datatable .p-datatable-thead>tr>th {
+  background-color: #404040 !important;
+  color: var(--text-color) !important;
+  border-color: var(--border-color) !important;
+}
+
+.dark-theme .p-datatable .p-datatable-tbody>tr>td {
+  border-color: var(--border-color) !important;
+}
+
+.dark-theme .p-paginator {
+  background-color: #3a3a3a !important;
+  color: var(--text-color) !important;
+  border-color: var(--border-color) !important;
+}
+
+.dark-theme .p-paginator .p-paginator-pages .p-paginator-page {
+  color: var(--text-color) !important;
+}
+
+.dark-theme .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background-color: var(--primary-color) !important;
+  color: #000 !important;
+}
+
+/* Contenedores principales */
+.dark-theme .p-card {
+  background-color: #3a3a3a !important;
+  color: var(--text-color) !important;
+  border-color: var(--border-color) !important;
+}
+
+.dark-theme .p-panel {
+  background-color: #3a3a3a !important;
+  color: var(--text-color) !important;
+}
+
+.dark-theme .p-panel .p-panel-header {
+  background-color: #404040 !important;
+  color: var(--text-color) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Inputs y formularios */
+.dark-theme .p-inputtext {
+  background-color: #404040 !important;
+  color: var(--text-color) !important;
+  border-color: var(--border-color) !important;
+}
+
+.dark-theme .p-dropdown {
+  background-color: #404040 !important;
+  color: var(--text-color) !important;
+  border-color: var(--border-color) !important;
+}
+
+.dark-theme .p-dropdown-panel {
+  background-color: #3a3a3a !important;
+  color: var(--text-color) !important;
+  border-color: var(--border-color) !important;
+}
+
+.dark-theme .p-dropdown-item {
+  color: var(--text-color) !important;
+}
+
+.dark-theme .p-dropdown-item:hover {
+  background-color: #404040 !important;
 }

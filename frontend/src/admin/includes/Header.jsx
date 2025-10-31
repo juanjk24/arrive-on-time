@@ -10,11 +10,13 @@ import { Toast } from "primereact/toast";
 import { getUserById, auth } from "./api/getUser.js";
 import { navItems } from "./lib/nav-items.js";
 import { useDataContext } from "../../contexts/DataContext.jsx";
+import { useTheme } from "../../contexts/ThemeContext.jsx";
 
 export function Header() {
   const token = document.cookie.split("=")[1];
   const location = useLocation();
   const { triggerUserProfileRefresh, refreshUserProfile } = useDataContext();
+  const { isDarkMode, toggleTheme } = useTheme();
   const [visibleRight, setVisibleRight] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState([]);
@@ -168,6 +170,14 @@ export function Header() {
             onUpload={onUpload}
             onError={onError}
             onBeforeUpload={() => setLoading(true)}
+          />
+
+          <Button
+            style={{ width: "100%" }}
+            className="secondary-button"
+            label={isDarkMode ? "Modo Claro" : "Modo Oscuro"}
+            icon={isDarkMode ? "pi pi-sun" : "pi pi-moon"}
+            onClick={toggleTheme}
           />
 
           <Button
