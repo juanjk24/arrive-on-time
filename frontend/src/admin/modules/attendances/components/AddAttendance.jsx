@@ -12,6 +12,7 @@ import { getUsers } from "../api/users.js";
 import { locale } from "../constants/calendar-locale.js";
 import { TOAST_SEVERITY, TOAST_SUMMARY } from "../constants/toast-config.js";
 import { useDataContext } from "../../../../contexts/DataContext.jsx";
+import { sendEmail } from "../api/email.js";
 
 export function AddAttendance({ visible, setVisible }) {
   const toast = useRef(null);
@@ -86,6 +87,29 @@ export function AddAttendance({ visible, setVisible }) {
           summary: TOAST_SUMMARY.error,
         });
       }
+
+      const responseEmail = await sendEmail({
+        date: newDate,
+        time: newTime,
+        userId: userId.user_id,
+        attendanceTypeId: attendanceTypeId.tipo_id,
+      });
+
+      if (responseEmail) {
+        showToast({
+          detail: "Correo enviado correctamente",
+          severity: TOAST_SEVERITY.success,
+          summary: TOAST_SUMMARY.success,
+        });
+      } else {
+        showToast({
+          detail: "Error al enviar el correo",
+          severity: TOAST_SEVERITY.error,
+          summary: TOAST_SUMMARY.error,
+        });
+      }
+
+
     } catch (error) {
       showToast({
         detail: error.message,

@@ -14,6 +14,7 @@ import { attendancesTypeRouter } from "./routes/attendancesType.js";
 import { authRouter } from "./routes/auth.js";
 import { resourcesRouter } from "./routes/resources.js";
 import { queriesRouter } from './routes/queries.js';
+import { emailRouter } from './routes/emailRouter.js';
 
 const app = express();
 app.use(express.json());
@@ -36,6 +37,9 @@ app.use('/resources', resourcesRouter)
 
 // Ruta para gestionar las consultas de datos
 app.use('/queries', queriesRouter)
+
+// Ruta para gestionar envio de correos
+app.use('/email', emailRouter)
 
 // configuracion para habilitar https
 const httpsOptions = {
