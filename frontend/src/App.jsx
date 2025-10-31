@@ -14,6 +14,7 @@ import { AttendancesType } from "./admin/modules/attendances-type/index.jsx";
 import { YourAttendances } from "./user/modules/your-attendances/index.jsx";
 import { YourAttendancesAdmin } from "./admin/modules/your-attendances/index.jsx";
 import { DataProvider } from "./contexts/DataContext.jsx";
+import { ThemeProvider } from "./contexts/ThemeContext.jsx";
 
 function App() {
   const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -73,8 +74,9 @@ function App() {
   };
 
   return (
-    <DataProvider>
-      <BrowserRouter>
+    <ThemeProvider>
+      <DataProvider>
+        <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
 
@@ -116,7 +118,8 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
-    </DataProvider>
+      </DataProvider>
+    </ThemeProvider>
   );
 }
 
