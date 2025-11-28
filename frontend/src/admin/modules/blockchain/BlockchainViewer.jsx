@@ -115,18 +115,6 @@ const BlockchainViewer = () => {
           </div>
         </div>
 
-        <div className="stat-card">
-          <div className="stat-icon">
-            {verification?.valid ? '✅' : '❌'}
-          </div>
-          <div className="stat-info">
-            <div className="stat-value">
-              {verification?.valid ? 'VÁLIDA' : 'COMPROMETIDA'}
-            </div>
-            <div className="stat-label">Integridad</div>
-          </div>
-        </div>
-
         {stats?.actionStats?.map((stat) => (
           <div key={stat.action} className="stat-card">
             <div className="stat-icon" style={{ color: getActionColor(stat.action) }}>
