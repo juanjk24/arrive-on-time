@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import './blockchain-viewer.css';
 
+const API_URL = 'https://localhost:5000';
+
 const BlockchainViewer = () => {
   const [blocks, setBlocks] = useState([]);
   const [verification, setVerification] = useState(null);
@@ -11,7 +13,7 @@ const BlockchainViewer = () => {
 
   // Obtener token del localStorage
   const getToken = () => {
-    return localStorage.getItem('token');
+    return  document.cookie.split("=")[1];
   };
 
   // Cargar datos del blockchain
@@ -20,22 +22,22 @@ const BlockchainViewer = () => {
     try {
       const token = getToken();
       const headers = {
-        'Authorization': `Bearer ${token}`,
+        'x-access-token': `${token}`,
         'Content-Type': 'application/json'
       };
 
       // Obtener bloques
-      const blocksResponse = await fetch('https://localhost:3000/blockchain/blocks', { headers });
+      const blocksResponse = await fetch(`${API_URL}/blockchain/blocks`, { headers });
       const blocksData = await blocksResponse.json();
       setBlocks(blocksData.blocks || []);
 
       // Obtener estadísticas
-      const statsResponse = await fetch('https://localhost:3000/blockchain/stats', { headers });
+      const statsResponse = await fetch(`${API_URL}/blockchain/stats`, { headers });
       const statsData = await statsResponse.json();
       setStats(statsData.stats);
 
       // Verificar integridad
-      const verifyResponse = await fetch('https://localhost:3000/blockchain/verify', { headers });
+      const verifyResponse = await fetch(`${API_URL}/blockchain/verify`, { headers });
       const verifyData = await verifyResponse.json();
       setVerification(verifyData);
 
@@ -56,9 +58,9 @@ const BlockchainViewer = () => {
 
     try {
       const token = getToken();
-      const response = await fetch(`https://localhost:3000/blockchain/attendance/${searchId}/history`, {
+      const response = await fetch(`${API_URL}/blockchain/attendance/${searchId}/history`, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          'x-access-token': `${token}`,
           'Content-Type': 'application/json'
         }
       });
