@@ -15,6 +15,7 @@ import { authRouter } from "./routes/auth.js";
 import { resourcesRouter } from "./routes/resources.js";
 import { queriesRouter } from './routes/queries.js';
 import { emailRouter } from './routes/emailRouter.js';
+import blockchainRouter from './routes/blockchain.js';
 
 const app = express();
 app.use(express.json());
@@ -31,6 +32,9 @@ app.use('/roles', rolesRouter)
 app.use('/companies', companiesRouter)
 app.use('/attendances', attendanceRouter)
 app.use('/attendances-type', attendancesTypeRouter)
+
+// Ruta para gestionar el blockchain
+app.use('/blockchain', blockchainRouter)
 
 // Rutas para gestionar la descarga de recursos
 app.use('/resources', resourcesRouter)

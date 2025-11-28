@@ -15,6 +15,7 @@ import { YourAttendances } from "./user/modules/your-attendances/index.jsx";
 import { YourAttendancesAdmin } from "./admin/modules/your-attendances/index.jsx";
 import { DataProvider } from "./contexts/DataContext.jsx";
 import { ThemeProvider } from "./contexts/ThemeContext.jsx";
+import BlockchainViewer from "./admin/modules/blockchain/BlockchainViewer.jsx";
 
 function App() {
   const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -96,6 +97,7 @@ function App() {
                   <Route path="companies" element={<Companies />} />
                   <Route path="roles" element={<Roles />} />
                   <Route path="attendances-type" element={<AttendancesType />} />
+                  <Route path="blockchain" element={<BlockchainViewer />} />
                 </Routes>
               </ProtectedRoute>
             }
