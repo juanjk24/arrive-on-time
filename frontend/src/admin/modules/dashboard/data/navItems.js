@@ -60,5 +60,10 @@ export const getAsideNavItems = () => {
       icon: "dashboard/file-excel",
       title: "Descargar Tus Asistencias",
     },
+    {
+      to: "/admin/blockchain",
+      icon: "dashboard/blockchain",
+      title: "Mirar Blockchain",
+    }
   ];
 };

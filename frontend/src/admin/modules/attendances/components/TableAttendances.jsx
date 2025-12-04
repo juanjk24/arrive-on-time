@@ -35,6 +35,7 @@ export function TableAttendances({ attendances = [] }) {
       <div>
         <Button
           className="primary-button"
+          size="small"
           style={{ width: "200px" }}
           icon={grouped ? "pi pi-list" : "pi pi-th-large"}
           label={grouped ? "Desagrupar" : "Agrupar por tipo"}
