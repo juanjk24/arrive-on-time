@@ -39,8 +39,8 @@ export const getAsideNavItems = () => {
 
     {
       to: "/admin/queries",
-      icon: "dashboard/user-search",
-      title: "Realizar Consultas",
+      icon: "dashboard/stats",
+      title: "Ver Estadísticas",
     },
 
     {
@@ -64,6 +64,11 @@ export const getAsideNavItems = () => {
       to: "/admin/blockchain",
       icon: "dashboard/blockchain",
       title: "Mirar Blockchain",
-    }
+    },
+    {
+      to: "/admin/search-attendances",
+      icon: "dashboard/user-search",
+      title: "Realizar Consultas de Asistencias",
+    },
   ];
 };

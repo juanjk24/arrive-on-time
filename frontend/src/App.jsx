@@ -16,6 +16,7 @@ import { YourAttendancesAdmin } from "./admin/modules/your-attendances/index.jsx
 import { DataProvider } from "./contexts/DataContext.jsx";
 import { ThemeProvider } from "./contexts/ThemeContext.jsx";
 import BlockchainViewer from "./admin/modules/blockchain/BlockchainViewer.jsx";
+import { SearchAttendances } from "./admin/modules/search-attendances/index.jsx";
 
 function App() {
   const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -98,6 +99,7 @@ function App() {
                   <Route path="roles" element={<Roles />} />
                   <Route path="attendances-type" element={<AttendancesType />} />
                   <Route path="blockchain" element={<BlockchainViewer />} />
+                  <Route path="search-attendances" element={<SearchAttendances />} />
                 </Routes>
               </ProtectedRoute>
             }
