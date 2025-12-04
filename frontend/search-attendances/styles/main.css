@@ -1,0 +1,25 @@
+.queries {
+  padding: 40px 10%;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+.queries-main {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 10px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+
+  h1 {
+    margin: 0;
+    letter-spacing: 1px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 16px;
+  }
+}
