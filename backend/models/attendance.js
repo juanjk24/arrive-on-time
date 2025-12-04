@@ -114,7 +114,7 @@ export class AttendanceModel {
         console.error("Error al agregar al blockchain:", blockchainError);
       }
 
-      return result.affectedRows;
+      return { affectedRows: result.affectedRows, id: previousData[0].asistencia_id };
     } catch (error) {
       console.log(error);
       throw new Error("Error al actualizar la asistencia");
