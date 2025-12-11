@@ -93,6 +93,7 @@ export function AddAttendance({ visible, setVisible }) {
         time: newTime,
         userId: userId.user_id,
         attendanceTypeId: attendanceTypeId.tipo_id,
+        attendanceId: attendance.id,
       });
 
       if (responseEmail) {

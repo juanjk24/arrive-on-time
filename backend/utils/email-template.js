@@ -1,4 +1,4 @@
-export function generateEmailTemplate(name, date, time, attendanceType) {
+export function generateEmailTemplate(name, date, time, attendanceType, id) {
     return `
         <!DOCTYPE html>
         <html lang="es">
@@ -58,7 +58,7 @@ export function generateEmailTemplate(name, date, time, attendanceType) {
                         font-weight: 600;
                     }
                     .details-box {
-                        background-color: #f8fffe;
+                        background-color: #d9dfdeff;
                         border-left: 4px solid #0ae98a;
                         border-radius: 8px;
                         padding: 20px;
@@ -128,6 +128,10 @@ export function generateEmailTemplate(name, date, time, attendanceType) {
                             <div class="detail-item">
                                 <span class="detail-label">📋 Tipo de Asistencia:</span>
                                 <span class="detail-value">${attendanceType}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Código de Asistencia:</span>
+                                <span class="detail-value">${id}</span>
                             </div>
                         </div>
                     </div>

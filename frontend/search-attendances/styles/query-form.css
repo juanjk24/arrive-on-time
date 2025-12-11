@@ -1,0 +1,13 @@
+#query-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 16px;
+    gap: 10px;
+
+    #query-option {
+        width: 80%;
+    }
+}

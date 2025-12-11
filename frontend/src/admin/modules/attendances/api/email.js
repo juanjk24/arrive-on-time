@@ -1,6 +1,6 @@
 const token = document.cookie.split("=")[1];
 
-export async function sendEmail ({ date, time, userId, attendanceTypeId }) {
+export async function sendEmail ({ date, time, userId, attendanceTypeId, attendanceId }) {
     try {
         const response = await fetch('https://localhost:5000/email/send', {
             method: 'POST',
@@ -8,7 +8,7 @@ export async function sendEmail ({ date, time, userId, attendanceTypeId }) {
                 'Content-Type': 'application/json',
                 "x-access-token": token
             },
-            body: JSON.stringify({ date, time, userId, attendanceTypeId })
+            body: JSON.stringify({ date, time, userId, attendanceTypeId, attendanceId }),
         });
 
         if (!response.ok) {

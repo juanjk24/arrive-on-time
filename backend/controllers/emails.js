@@ -8,9 +8,9 @@ const resend = new Resend(RESEND_API_KEY);
 
 export class EmailController {
     static async send(req, res) {
-        const { date, time, userId, attendanceTypeId } = req.body;
+        const { date, time, userId, attendanceTypeId, attendanceId } = req.body;
 
-        if (!userId || !attendanceTypeId || !date || !time) {
+        if (!userId || !attendanceTypeId || !date || !time || !attendanceId) {
             return res.status(400).json({ error: "Faltan datos requeridos" });
         }
 
@@ -33,7 +33,7 @@ export class EmailController {
             from: "onboarding@resend.dev",
             to: [user.correo],
             subject: "Asistencia Registrada - Arrive On Time",
-            html: generateEmailTemplate(user.nombres, date, time, attendanceType.tipo_asistencia),
+            html: generateEmailTemplate(user.nombres, date, time, attendanceType.tipo_asistencia, attendanceId),
         });
 
         if (error) {

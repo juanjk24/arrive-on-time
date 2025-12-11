@@ -12,6 +12,7 @@ import { getAttendancesType } from "../api/attendancesType";
 import { getUsers } from "../api/users";
 import { locale } from '../constants/calendar-locale.js';
 import { useDataContext } from "../../../../contexts/DataContext.jsx";
+import { sendEmail } from "../api/email.js";
 
 export function UpdateAttendance({ visible, setVisible, attendance }) {
   const toast = useRef(null);
@@ -111,13 +112,41 @@ export function UpdateAttendance({ visible, setVisible, attendance }) {
         throw new Error("Error en la solicitud");
       }
 
-      const data = await response.text();
+      const data = await response.json();
       toast.current.show({
         severity: "success",
         summary: "Felicitaciones",
         detail: "Asistencia actualizada correctamente",
         life: 3000,
-      });
+      });      
+
+      // Enviar correo de confirmación
+      try {
+        const responseEmail = await sendEmail({
+          date: newDate,
+          time: newTime,
+          userId: attendanceData.userId,
+          attendanceTypeId: attendanceData.attendanceTypeId,
+          attendanceId: data.affectedRows.id
+        });
+
+        if (responseEmail) {
+          toast.current.show({
+            severity: "success",
+            summary: "Correo enviado",
+            detail: "Correo de confirmación enviado correctamente",
+            life: 3000,
+          });
+        }
+      } catch (emailError) {
+        console.error("Error al enviar el correo:", emailError);
+        toast.current.show({
+          severity: "warn",
+          summary: "Advertencia",
+          detail: "Hubo un error al enviar el correo",
+          life: 3000,
+        });
+      }
 
       setVisible(false);
       setTimeout(() => {
