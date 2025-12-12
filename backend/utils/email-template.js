@@ -1,4 +1,34 @@
-export function generateEmailTemplate(name, date, time, attendanceType, id) {
+export function generateEmailTemplate(userId, name, date, time, attendanceType, id, action = 'create') {
+    // Definir contenido según la acción
+    const actionConfig = {
+        create: {
+            icon: '✓',
+            title: 'Asistencia Registrada',
+            message: 'Tu asistencia ha sido registrada con éxito en el sistema.',
+            gradient: 'linear-gradient(135deg, #0ae98a 0%, #08b96d 100%)',
+            borderColor: '#0ae98a',
+            labelColor: '#0ae98a'
+        },
+        update: {
+            icon: '🔄',
+            title: 'Asistencia Actualizada',
+            message: 'Tu asistencia ha sido actualizada correctamente en el sistema.',
+            gradient: 'linear-gradient(135deg, #4A90E2 0%, #357ABD 100%)',
+            borderColor: '#4A90E2',
+            labelColor: '#4A90E2'
+        },
+        delete: {
+            icon: '🗑️',
+            title: 'Asistencia Eliminada',
+            message: 'Tu asistencia ha sido eliminada del sistema.',
+            gradient: 'linear-gradient(135deg, #E74C3C 0%, #C0392B 100%)',
+            borderColor: '#E74C3C',
+            labelColor: '#E74C3C'
+        }
+    };
+
+    const config = actionConfig[action] || actionConfig.create;
+
     return `
         <!DOCTYPE html>
         <html lang="es">
@@ -26,7 +56,7 @@ export function generateEmailTemplate(name, date, time, attendanceType, id) {
                         overflow: hidden;
                     }
                     .header {
-                        background: linear-gradient(135deg, #0ae98a 0%, #08b96d 100%);
+                        background: ${config.gradient};
                         padding: 40px 30px;
                         text-align: center;
                     }
@@ -59,7 +89,7 @@ export function generateEmailTemplate(name, date, time, attendanceType, id) {
                     }
                     .details-box {
                         background-color: #d9dfdeff;
-                        border-left: 4px solid #0ae98a;
+                        border-left: 4px solid ${config.borderColor};
                         border-radius: 8px;
                         padding: 20px;
                         margin-bottom: 30px;
@@ -74,7 +104,7 @@ export function generateEmailTemplate(name, date, time, attendanceType, id) {
                     }
                     .detail-label {
                         font-weight: 600;
-                        color: #0ae98a;
+                        color: ${config.labelColor};
                         min-width: 180px;
                         font-size: 15px;
                     }
@@ -109,14 +139,18 @@ export function generateEmailTemplate(name, date, time, attendanceType, id) {
             <body>
                 <div class="container">
                     <div class="header">
-                        <div class="success-icon">✓</div>
-                        <h1>Asistencia Registrada</h1>
+                        <div class="success-icon">${config.icon}</div>
+                        <h1>${config.title}</h1>
                     </div>
                     <div class="content">
                         <p class="greeting">Hola ${name},</p>
-                        <p class="message">Tu asistencia ha sido registrada con éxito en el sistema.</p>
-                        <p class="details-title">Detalles de tu registro:</p>
+                        <p class="message">${config.message}</p>
+                        <p class="details-title">Detalles de tu ${action === 'delete' ? 'registro eliminado' : 'registro'}:</p>
                         <div class="details-box">
+                             <div class="detail-item">
+                                <span class="detail-label">Código de usuario:</span>
+                                <span class="detail-value">${userId}</span>
+                            </div>
                             <div class="detail-item">
                                 <span class="detail-label">📅 Fecha:</span>
                                 <span class="detail-value">${date}</span>

@@ -5,6 +5,7 @@ import { Button } from "primereact/button";
 
 import { UpdateAttendance } from "./UpdateAttendance.jsx";
 import { useDataContext } from "../../../../contexts/DataContext.jsx";
+import { sendEmail } from "../api/email.js";
 
 export function TableActions({ attendance }) {
   const toast = useRef(null);
@@ -33,6 +34,42 @@ export function TableActions({ attendance }) {
 
       if (!response.ok) {
         throw new Error("Error en la solicitud");
+      }
+
+      toast.current.show({
+        severity: "success",
+        summary: "Eliminado",
+        detail: "Asistencia eliminada correctamente",
+        life: 3000,
+      });
+
+      // Enviar correo de notificación de eliminación
+      try {
+        const responseEmail = await sendEmail({
+          date: attendance.fecha,
+          time: attendance.hora,
+          userId: attendance.user_id,
+          attendanceTypeId: attendance.tipo_id,
+          attendanceId: attendance.asistencia_id,
+          action: 'delete'
+        });
+
+        if (responseEmail) {
+          toast.current.show({
+            severity: "success",
+            summary: "Correo enviado",
+            detail: "Correo de enviado correctamente",
+            life: 3000,
+          });
+        }
+      } catch (emailError) {
+        console.error("Error al enviar el correo:", emailError);
+        toast.current.show({
+          severity: "warn",
+          summary: "Advertencia",
+          detail: "Asistencia eliminada pero hubo un error al enviar el correo",
+          life: 3000,
+        });
       }
 
       setVisible(false);
@@ -81,7 +118,7 @@ export function TableActions({ attendance }) {
         style={{ marginRight: ".5em" }}
         onClick={() => setUpdateVisible(true)}
       />
-      {/* <Button
+      <Button
         icon="pi pi-trash"
         size="small"
         className="danger-button"
@@ -89,7 +126,7 @@ export function TableActions({ attendance }) {
         tooltipOptions={{ position: "bottom" }}
         onClick={deleteAttendanceDialog}
       />
- */}
+
       <UpdateAttendance
         visible={updateVisible}
         setVisible={setUpdateVisible}

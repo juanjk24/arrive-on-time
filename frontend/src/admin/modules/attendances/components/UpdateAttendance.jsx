@@ -127,14 +127,15 @@ export function UpdateAttendance({ visible, setVisible, attendance }) {
           time: newTime,
           userId: attendanceData.userId,
           attendanceTypeId: attendanceData.attendanceTypeId,
-          attendanceId: data.affectedRows.id
+          attendanceId: data.affectedRows.id,
+          action: 'update'
         });
 
         if (responseEmail) {
           toast.current.show({
             severity: "success",
             summary: "Correo enviado",
-            detail: "Correo de confirmación enviado correctamente",
+            detail: "Correo de enviado correctamente",
             life: 3000,
           });
         }
